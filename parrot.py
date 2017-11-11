@@ -1,4 +1,4 @@
-#!/bin/sh python
+#!/usr/bin/env python3
 """
 parrot.py
 
