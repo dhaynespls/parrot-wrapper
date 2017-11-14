@@ -45,7 +45,7 @@ def discover_the_drone():
     find.
     """
     print 'Searching for devices'
-    discovery = Discovery([DeviceID.BEBOP_DRONE, DeviceID.JUMPING_SUMO])
+    discovery = Discovery([DeviceID.BEBOP_DRONE])
     discovery.wait_for_change()
     discovery.stop()
     print "Found one!"
