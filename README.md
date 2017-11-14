@@ -2,7 +2,7 @@
 
 A wrapper for the Parrot SDK in python.
 
-Python 3 with 2.7 backwards compatibility.
+Python 2 my dude.
 
 ## Setup
 
