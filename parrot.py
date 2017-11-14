@@ -151,8 +151,24 @@ def fly_the_drone(drone_and_connection):
             elif data == " ":
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 0, 0, 0, 0, 0)
+            #help message showing controls
+            elif data == 'h':
+                print 'Valid Keys:'
+                print 't - take off'
+                print 'e - emergency'
+                print 'l - land'
+                print 'w - ascend'
+                print 's - descend'
+                print 'a - bank left'
+                print 'd - bank right'
+                print 'q - increase speed'
+                print 'z - decrease speed'
+                print 'x - pivot right'
+                print 'c - pivot left'
+                print '[space] - clear'
             else:
-                print 'Wrong Key'
+                print 'Invalid Key'
+                print 'Press h to view valid keys'
             print data
     except KeyboardInterrupt:
         drone_and_connection[1].close()
