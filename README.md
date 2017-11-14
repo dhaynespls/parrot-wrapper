@@ -9,7 +9,7 @@ Python 2 my dude.
 Assuming you have `virtualenv` installed,
 
 ```py
-virtualenv -p python3 venv
+virtualenv -p python2 venv
 source venv/bin/activate
 pip install -r requirements.txt
 python parrot.py
