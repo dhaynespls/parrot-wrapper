@@ -47,9 +47,10 @@ def discover_the_drone():
     print 'Searching for devices'
     discovery = Discovery([DeviceID.BEBOP_DRONE])
     discovery.wait_for_change()
+    devices = discovery.get_devices()
     discovery.stop()
     print "Found one!"
-    return discovery.get_devices()[0]
+    return devices[0]
 
 def connect_to_the_drone(bebop_drone):
     """
@@ -66,6 +67,7 @@ def connect_to_the_drone(bebop_drone):
     if drone is None:
         print 'Unable to connect to a product'
         sys.exit(1)
+
     drone.dump_state()
 
     vars = globals().copy()
@@ -73,6 +75,7 @@ def connect_to_the_drone(bebop_drone):
     readline.set_completer(rlcompleter.Completer(vars).complete)
     readline.parse_and_bind("tab: complete")
     shell = code.InteractiveConsole(vars)
+    shell.interact()
 
     # Symbolic name meaning all available interfaces
     HOST = None
