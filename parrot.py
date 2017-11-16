@@ -50,7 +50,7 @@ def discover_the_drone():
     devices = discovery.get_devices()
     discovery.stop()
     print "Found one!"
-    return devices[0]
+    return devices.itervalues().next()
 
 def connect_to_the_drone(bebop_drone):
     """
@@ -62,6 +62,7 @@ def connect_to_the_drone(bebop_drone):
     d2c_port = 54321
     controller_type = "PC"
     controller_name = "bybop shell"
+    print str(bebop_drone)
     drone = create_and_connect(bebop_drone, d2c_port, controller_type,
                                controller_name)
     if drone is None:
@@ -75,7 +76,6 @@ def connect_to_the_drone(bebop_drone):
     readline.set_completer(rlcompleter.Completer(vars).complete)
     readline.parse_and_bind("tab: complete")
     shell = code.InteractiveConsole(vars)
-    shell.interact()
 
     # Symbolic name meaning all available interfaces
     HOST = None
