@@ -108,7 +108,7 @@ def connect_to_the_drone(bebop_drone):
     conn, addr = s.accept()
     print 'Connected by', addr
     return (drone, conn)
-
+###
 def fly_the_drone(drone_and_connection):
     """
     Until a SIGINT, fly the drone through the terminal.
