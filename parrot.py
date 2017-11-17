@@ -149,7 +149,7 @@ def fly_the_drone(drone_and_connection):
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 50, 0, 0, 0, 0)
              
-            # Gaz: gaz speed percentage (calculated on the max vertical speed)(from -100 to 100).                                      'PCMD', True, 50, 0, 0, 0, 0)
+            # Gaz: gaz speed percentage (calculated on the max vertical speed)(from -100 to 100).
             elif data == "i":
                 # Positive values go up.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
@@ -159,7 +159,7 @@ def fly_the_drone(drone_and_connection):
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 0, 0, 0, -50, 0)
 
-            # Yaw: yaw speedpercentage (calculated on the max rotation speed)(from -100 to 100).                                      'PCMD', True, 0, 0, 0, -50, 0)
+            # Yaw: yaw speedpercentage (calculated on the max rotation speed)(from -100 to 100).
             elif data == "j":
                 # Positive values go right.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
