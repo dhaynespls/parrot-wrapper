@@ -108,50 +108,72 @@ def connect_to_the_drone(bebop_drone):
     conn, addr = s.accept()
     print 'Connected by', addr
     return (drone, conn)
-###
+
 def fly_the_drone(drone_and_connection):
     """
     Until a SIGINT, fly the drone through the terminal.
     """
+
+    # Using try to catch potential error that user may have different keystrokes. 
     try:
         while True:
+            # drone_and_connection[1] is for the return conn from last connect_to_drone function. 
             data = drone_and_connection[1].recv(1024)
             if not data:
                 break
+            # drone_and_connection[0] is for the return value drone from last connect_to_drone function.
             if data == "t":
                 drone_and_connection[0].take_off()
             elif data == "e":
                 drone_and_connection[0].emergency()
             elif data == "l":
                 drone_and_connection[0].land()
+
+            # Pitch: pitch angle percentage (from -100 to 100).    
             elif data == "w":
+                # Positive values go forward.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 0, 50, 0, 0, 0)
             elif data == "s":
+                # Negative values go backward.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 0, -50, 0, 0, 0)
+
+            # Roll: roll angle percentage (from -100 to 100).    
             elif data == "a":
+                # Negative valules go left.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, -50, 0, 0, 0, 0)
             elif data == "d":
+                # Positive valules go right.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 50, 0, 0, 0, 0)
-            elif data == "q":
+             
+            # Gaz: gaz speed percentage (calculated on the max vertical speed)(from -100 to 100).                                      'PCMD', True, 50, 0, 0, 0, 0)
+            elif data == "i":
+                # Positive values go up.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 0, 0, 0, 50, 0)
-            elif data == "z":
+            elif data == "k":
+                # Negative values go down.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 0, 0, 0, -50, 0)
-            elif data == "x":
+
+            # Yaw: yaw speedpercentage (calculated on the max rotation speed)(from -100 to 100).                                      'PCMD', True, 0, 0, 0, -50, 0)
+            elif data == "j":
+                # Positive values go right.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 0, 0, 50, 0, 0)
-            elif data == "c":
+            elif data == "l":  
+                # Negative values go left.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 0, 0, -50, 0, 0)
+            # Hover
             elif data == " ":
+                # Stop moving and hover over the ground.
                 drone_and_connection[0].send_data('ARDrone3', 'Piloting',
                                                   'PCMD', True, 0, 0, 0, 0, 0)
-            #help message showing controls
+            # help message showing controls
             elif data == 'h':
                 print 'Valid Keys:'
                 print 't - take off'
@@ -161,15 +183,22 @@ def fly_the_drone(drone_and_connection):
                 print 's - descend'
                 print 'a - bank left'
                 print 'd - bank right'
-                print 'q - increase speed'
-                print 'z - decrease speed'
-                print 'x - pivot right'
-                print 'c - pivot left'
-                print '[space] - clear'
+                print 'i - increase speed'
+                print 'k - decrease speed'
+                print 'j - pivot right'
+                print 'l - pivot left'
+                print '[space] - hover'
             else:
                 print 'Invalid Key'
                 print 'Press h to view valid keys'
+                # Let the drone hover if it doesn't receive any control data or disconnected.
+                # Otherwise, the drone will continue in its previous direction.
+                # The reason we set back the values to 0 as soon as the keystrokes is released.
+                drone_and_connection[0].send_data('ARDrone3','Piloting','PCMD', True, 0, 0, 0, 0, 0)
             print data
+
+    # Catch the input error of connection (drone_and_connectionp[1])
+    # and drone data (drone_and_connection[0])
     except KeyboardInterrupt:
         drone_and_connection[1].close()
         drone_and_connection[0].stop()
