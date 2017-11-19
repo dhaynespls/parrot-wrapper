@@ -190,10 +190,6 @@ def fly_the_drone(drone_and_connection):
             else:
                 print 'Invalid Key'
                 print 'Press h to view valid keys'
-                # Let the drone hover if it doesn't receive any control data or disconnected.
-                # Otherwise, the drone will continue in its previous direction.
-                # The reason we set back the values to 0 as soon as the keystrokes is released.
-                drone_and_connection[0].send_data('ARDrone3','Piloting','PCMD', True, 0, 0, 0, 0, 0)
             print data
 
     #if user sends a keyboard interruption (Ctrl+C), disconnect from the drone
