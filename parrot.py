@@ -114,7 +114,6 @@ def fly_the_drone(drone_and_connection):
     Until a SIGINT, fly the drone through the terminal.
     """
 
-    # Using try to catch potential error that user may have different keystrokes. 
     try:
         while True:
             # drone_and_connection[1] is for the return conn from last connect_to_drone function. 
@@ -197,8 +196,7 @@ def fly_the_drone(drone_and_connection):
                 drone_and_connection[0].send_data('ARDrone3','Piloting','PCMD', True, 0, 0, 0, 0, 0)
             print data
 
-    # Catch the input error of connection (drone_and_connectionp[1])
-    # and drone data (drone_and_connection[0])
+    #if user sends a keyboard interruption (Ctrl+C), disconnect from the drone
     except KeyboardInterrupt:
         drone_and_connection[1].close()
         drone_and_connection[0].stop()
